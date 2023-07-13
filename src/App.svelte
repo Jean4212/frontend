@@ -1,18 +1,17 @@
 <script>
 	import Login from "./routes/login.svelte";
 	import Home from "./routes/home.svelte";	
-	import Cookies from "js-cookie";	
 
-	let Token = Cookies.get("login");
+	let token = sessionStorage.getItem("token");
 
-	async function loadCookies() {		
-	  	Token = await Cookies.get("login"); 		
+	async function login_user() {		
+		token = sessionStorage.getItem("token");	
 	};  	
 </script>
 
 <main>
-	{#if !Token}
-		<Login on:login={loadCookies}/>	
+	{#if !token}
+		<Login on:login={login_user}/>	
 	{:else}			
 		<Home />  	
 	{/if}

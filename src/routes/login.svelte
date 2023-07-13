@@ -1,6 +1,5 @@
 <script>
     import {createEventDispatcher} from "svelte";
-    import Cookies from "js-cookie";
 
     const dispatch = createEventDispatcher();
 
@@ -8,7 +7,7 @@
     let inputPassword;
 
     async function validate() {
-        
+
         const username = inputUsername.value;
         const password = inputPassword.value;
 
@@ -19,27 +18,27 @@
         } else if (!password) {
             alert("Registra el password");
             inputPassword.focus();
-        } else {
-                
-            const data = {username, password};
-            const url = "http://localhost:8000/login";
-            const options = {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(data)};
+
+        } else {                
+            const user = new FormData();
+            user.append("username", username);
+            user.append("password", password);           
+
+            const url = "https://appfastapi-jeanoi4212.b4a.run/login/";
+            const options = {method: "POST", headers: {"Content-Type": "application/x-www-form-urlencoded"}, body: new URLSearchParams(user)};
 
             try {
-                const response = await fetch(url, options);
-                const user = await response.json();                        
+                const response = await fetch(url, options);              
 
-                if (user) {             
-                    sessionStorage.setItem(user.username, user.name);
-                    sessionStorage.setItem("menu", 1);
-
-                    Cookies.set("login", user.username);  
-
+                if (response.ok) {    
+                    const response_json = await response.json()
+                    sessionStorage.setItem("token", response_json.access_token)          
+                    sessionStorage.setItem("menu", "1")
                     dispatch("login"); 
-
+                    
                 } else {
-                    alert("Credenciales invalidas");
-                }
+                    alert("Credenciales de autenticación inválidas");
+                };
 
             } catch {
                 alert("Sin conexion con el servidor");

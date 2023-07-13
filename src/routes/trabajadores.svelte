@@ -4,11 +4,13 @@
     let itemsPerPage = 20;
     let showPage = [];
 
-    const url = "http://localhost:8000/persons"; 
+    const token = sessionStorage.getItem("token");
+    const headers = {Authorization: "Bearer " + token};   
+    const url = "https://appfastapi-jeanoi4212.b4a.run/persons/";    
 
-    let fetchPromise = fetch(url)
+    let fetchPromise = fetch(url, {headers})
         .then(response => response.json())
-        .then(persons => {
+        .then(persons => {           
             lista = [...persons];        
             totalPages = Math.ceil(lista.length / itemsPerPage);     
             showPage = lista.slice(currentPage, itemsPerPage);            

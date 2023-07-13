@@ -1,21 +1,17 @@
 <script>
     import Trabajadores from "./trabajadores.svelte";
-    import Horario from "./horario.svelte";   
-    import Cookies from "js-cookie";
+    import Horario from "./horario.svelte"; 
   
-    let Menu = sessionStorage.getItem("menu"); 
+    let menu = sessionStorage.getItem("menu"); 
 
-    function showMenu(menuId) {   
-        sessionStorage.setItem("menu", menuId);
-        Menu = sessionStorage.getItem("menu"); 
+    function showMenu(menu_id) {   
+        sessionStorage.setItem("menu", menu_id);
+        menu = menu_id; 
     };
   
-    function deleteCookies() {    
-        let user = Cookies.get("login");
-        Cookies.remove("login");   
-        sessionStorage.removeItem(user);
-        sessionStorage.removeItem("menu");
-            
+    function deleteCookies() {            
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("menu");            
         location.href = location.href;
     };
 </script>
@@ -43,19 +39,19 @@
     </div>
 
     <div class="panel">
-        {#if Menu === "1"}           
+        {#if menu === "1"}           
             <p>Menu 1</p>
 
-        {:else if Menu === "2"}
+        {:else if menu === "2"}
             <p>Menu 2</p>
 
-        {:else if Menu === "3"}
+        {:else if menu === "3"}
             <Horario />
 
-        {:else if Menu === "4"}
+        {:else if menu === "4"}
             <p>Menu 4</p>
 
-        {:else if Menu === "5"}
+        {:else if menu === "5"}
             <Trabajadores />
         {/if}     
     </div>      

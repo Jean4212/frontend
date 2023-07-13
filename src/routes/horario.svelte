@@ -3,9 +3,11 @@
     
     let horario = [];    
 
-    const url = "http://localhost:8000/calendars"; 
+    const token = sessionStorage.getItem("token");
+    const headers = {Authorization: "Bearer " + token};
+    const URL = "http://localhost:8000/calendars"; 
 
-    let fetchPromise = fetch(url)
+    let fetchPromise = fetch(url, headers)
         .then(response => response.json())
         .then(persons => {
             horario = [...persons];
