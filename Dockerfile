@@ -14,7 +14,7 @@ RUN npm install
 RUN npm run build
 
 # Expone el puerto 5000 para la aplicación
-EXPOSE 5000
+EXPOSE 8080
 
 # Comando de inicio para ejecutar la aplicación
 CMD ["npm", "run", "start"]
