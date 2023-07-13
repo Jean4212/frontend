@@ -2,10 +2,10 @@
 FROM node:14
 
 # Establece el directorio de trabajo en /app
-WORKDIR /app
+COPY . /app
 
-# Copia los archivos de la carpeta local al contenedor
-COPY ./svelte /app
+# Establece el directorio de trabajo
+WORKDIR /app
 
 # Instala las dependencias del proyecto
 RUN npm install
