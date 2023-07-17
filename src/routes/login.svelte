@@ -24,7 +24,7 @@
             user.append("username", username);
             user.append("password", password);           
 
-            const url = "https://appfastapi-jeanoi4212.b4a.run/login/";
+            const url = "https://api-jeanoi4212.b4a.run/login/";
             const options = {method: "POST", headers: {"Content-Type": "application/x-www-form-urlencoded"}, body: new URLSearchParams(user)};
 
             try {

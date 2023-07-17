@@ -4,7 +4,7 @@
 
     const token = sessionStorage.getItem("token");
     const headers = {Authorization: "Bearer " + token};
-    const url = "https://appfastapi-jeanoi4212.b4a.run/select/cars"; 
+    const url = "https://api-jeanoi4212.b4a.run/select/cars"; 
 
     let fetchPromise = fetch(url, {headers})
         .then(response => response.json())
