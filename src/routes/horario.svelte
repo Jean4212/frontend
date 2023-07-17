@@ -4,11 +4,12 @@
 
     const token = sessionStorage.getItem("token");
     const headers = {Authorization: "Bearer " + token};
-    const url = "https://appfastapi-jeanoi4212.b4a.run/cars/"; 
+    const url = "https://appfastapi-jeanoi4212.b4a.run/select/cars"; 
 
     let fetchPromise = fetch(url, {headers})
         .then(response => response.json())
         .then(persons => {
+            console.log(persons)
             horario = [...persons];
         }); 
 </script>
