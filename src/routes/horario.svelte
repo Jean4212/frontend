@@ -1,36 +1,37 @@
 <script>
-    const color = ["#F70B04", "#1D3ACB", "#13BD08", "#08C3F1", "#F19D08", "#F604D1"];        
-    
+    const color = ["#F70B04", "#1D3ACB", "#13BD08", "#08C3F1", "#F19D08", "#F604D1"]; 
     let horario = [];    
 
     const token = sessionStorage.getItem("token");
     const headers = {Authorization: "Bearer " + token};
-    const URL = "http://localhost:8000/calendars"; 
+    const url = "https://appfastapi-jeanoi4212.b4a.run/cars/"; 
 
-    let fetchPromise = fetch(url, headers)
+    let fetchPromise = fetch(url, {headers})
         .then(response => response.json())
         .then(persons => {
             horario = [...persons];
         }); 
 </script>
-
+      
 <div class="container">
     <h2>Horario</h2>
    
     {#await fetchPromise}
         <p>Cargando datos...</p>
     {:then} 
-        {#each horario as horario}
-            <p><strong>{horario.unidad}</strong></p> 
-                
-            {#each horario.trabajadores as trabajador, index} 
-                <p><strong style="color: {color[index]};">{trabajador.slice(0, 1)}</strong>{trabajador.slice(1, )}</p>         
+
+        {#each horario as h}
+
+            <p><strong>{h.unidad}</strong></p> 
+            
+            {#each h.trabajadores as t, index} 
+                <p><strong style="color: {color[index]};">{t.slice(0, 1)}</strong>{t.slice(1, )}</p>         
             {/each}  
 
             <table>
                 <thead>
                     <tr>      
-                        {#each horario.turnos.dia as _, index}
+                        {#each h.dia as _, index}
                             <th>{index + 1}</th>
                         {/each} 
                     </tr>
@@ -38,60 +39,62 @@
 
                 <tbody>                     
                     <tr>                           
-                        {#each horario.turnos.dia as dia, index}                  
-                            {#if dia === 0}
+                        {#each h.dia as dia} 
+
+                            {#if typeof dia === "number"}
                                 <td>
-                                    <strong style="color: #DFE3E4;">&#10007</strong>
-                                </td>
-                            {:else if dia === 9}
-                                {#each horario.apoyos as apoyo}
-                                    {#if apoyo.dia === index + 1 && apoyo.turno === "dia"}
-                                        <td>
-                                            <div class="tooltip" data-tooltip={apoyo.nombre}>
-                                                <strong style="color: #DFE3E4;">&#10004</strong>
-                                            </div>
-                                        </td>
-                                    {/if}
-                                {/each}
-                            {:else}
-                                <td>
-                                    <strong style="color: {color[dia - 1]};">                                   
-                                        {horario.trabajadores[dia - 1].slice(0, 1)}                                      
+                                    <strong style="color: {color[dia]};">                                   
+                                        {h.trabajadores[dia].slice(0, 1)}                                      
                                     </strong>
-                                </td>
-                            {/if}                        
+                                </td>   
+                            {/if}  
+
+                            {#if typeof dia === "string"}
+                                {#if dia}
+                                    <td>
+                                        <div class="tooltip" data-tooltip={dia}>
+                                            <strong style="color: #DFE3E4;">&#10004</strong>
+                                        </div>                                
+                                    </td>
+                                {:else}
+                                    <td>
+                                        <strong style="color: #DFE3E4;">&#10007</strong>                              
+                                    </td>   
+                                {/if}                                
+                            {/if}             
                         {/each} 
                     </tr>  
                     <tr>                            
-                        {#each horario.turnos.noche as noche, index}                       
-                            {#if noche === 0}
+                        {#each h.noche as noche} 
+
+                            {#if typeof noche === "number"}
                                 <td>
-                                    <strong style="color: #DFE3E4;">&#10007</strong>
-                                </td>
-                            {:else if noche === 9}
-                                {#each horario.apoyos as apoyo}
-                                    {#if apoyo.dia === index + 1 && apoyo.turno === "noche"}
-                                        <td>
-                                            <div class="tooltip" data-tooltip={apoyo.nombre}>
-                                                <strong style="color: #DFE3E4;">&#10004</strong>
-                                            </div>
-                                        </td>
-                                    {/if}
-                                {/each}
-                            {:else}
-                                <td>
-                                    <strong style="color: {color[noche - 1]};">                                   
-                                        {horario.trabajadores[noche - 1].slice(0, 1)}                                      
+                                    <strong style="color: {color[noche]};">                                   
+                                        {h.trabajadores[noche].slice(0, 1)}                                      
                                     </strong>
-                                </td>
-                            {/if}                           
+                                </td>   
+                            {/if}  
+
+                            {#if typeof noche === "string"}
+                                {#if noche}
+                                    <td>
+                                        <div class="tooltip" data-tooltip={noche}>
+                                            <strong style="color: #DFE3E4;">&#10004</strong>
+                                        </div>                                
+                                    </td>
+                                {:else}
+                                    <td>
+                                        <strong style="color: #DFE3E4;">&#10007</strong>                              
+                                    </td>  
+                                {/if}                                
+                            {/if}                
                         {/each} 
                     </tr>          
                 </tbody>
             </table>
         {/each}
     {/await}
-</div>  
+</div>      
 
 <style>
     .container {      
