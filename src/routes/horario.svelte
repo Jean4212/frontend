@@ -4,7 +4,7 @@
 
     const token = sessionStorage.getItem("token");
     const headers = {Authorization: "Bearer " + token};
-    const url = "https://api-jeanoi4212.b4a.run/select/cars"; 
+    const url = "https://api-jeanoi4212.b4a.run/unidades"; 
 
     let fetchPromise = fetch(url, {headers})
         .then(response => response.json())
@@ -32,7 +32,7 @@
             <table>
                 <thead>
                     <tr>      
-                        {#each h.dia as _, index}
+                        {#each h.turno_dia as _, index}
                             <th>{index + 1}</th>
                         {/each} 
                     </tr>
@@ -40,7 +40,7 @@
 
                 <tbody>                     
                     <tr>                           
-                        {#each h.dia as dia} 
+                        {#each h.turno_dia as dia} 
 
                             {#if typeof dia === "number"}
                                 <td>
@@ -66,7 +66,7 @@
                         {/each} 
                     </tr>  
                     <tr>                            
-                        {#each h.noche as noche} 
+                        {#each h.turno_noche as noche} 
 
                             {#if typeof noche === "number"}
                                 <td>
