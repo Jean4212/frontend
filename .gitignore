@@ -147,6 +147,8 @@ dist
 
 .svelte-kit/
 package
-/node_modules
+/node_modules/
+/public/build/
 
+.DS_Store
 # End of https://www.toptal.com/developers/gitignore/api/node,svelte
