@@ -94,6 +94,8 @@
                 </tbody>
             </table>
         {/each}
+    {:catch}
+        <p>Error</p>
     {/await}
 </div>      
 

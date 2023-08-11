@@ -6,9 +6,7 @@
 
 	async function login_user() {		
 		token = sessionStorage.getItem("token");	
-	};  	
-	
-	let api = fetch("https://api-jeanoi4212.b4a.run");
+	}; 
 </script>
 
 <main>

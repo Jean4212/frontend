@@ -87,6 +87,8 @@
                 <button class:active={i === 0} class="page" id="btn{i}" on:click={() => getCurrentPageItems(i)}>{i + 1}</button>               
             {/each} 
         </nav>
+    {:catch}
+        <p>Error</p>
     {/await}    
 </div>
 
