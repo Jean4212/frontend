@@ -6,7 +6,7 @@
 
     const token = sessionStorage.getItem("token");
     const headers = {Authorization: "Bearer " + token};   
-    const url = "https://api-jeanoi4212.b4a.run/empleados";    
+    const url = "";    
 
     let fetchPromise = fetch(url, {headers})
         .then(response => response.json())

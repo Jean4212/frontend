@@ -1,6 +1,6 @@
 <script>
-	import Login from "./routes/login.svelte";
-	import Home from "./routes/home.svelte";	
+	import Login from "./login.svelte";
+	import Home from "./home.svelte";	
 
 	let token = sessionStorage.getItem("token");
 
