@@ -18,7 +18,12 @@
     "rollup-plugin-svelte": "^7.1.2",
     "svelte": "^3.55.0"
   },
-  "dependencies": {   
-    "sirv-cli": "^2.0.0"
+  "dependencies": {
+    "@zerodevx/svelte-toast": "^0.9.5",
+    "bootstrap": "^5.3.1",
+    "noty": "^3.2.0-beta-deprecated",
+    "sirv-cli": "^2.0.0",
+    "svelte-notifications": "^0.9.98",
+    "svelte-toasts": "^1.1.2"
   }
 }

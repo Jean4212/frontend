@@ -1,15 +1,16 @@
 <script>
     import Trabajadores from "./trabajadores.svelte";
     import Horario from "./horario.svelte"; 
-  
+    import Prueba from "./servicio.svelte";    
+
     let menu = sessionStorage.getItem("menu"); 
 
-    function showMenu(menu_id) {   
-        sessionStorage.setItem("menu", menu_id);
-        menu = menu_id; 
+    function Menu(select_menu) {   
+        sessionStorage.setItem("menu", select_menu);
+        menu = select_menu; 
     };
   
-    function deleteCookies() {            
+    function Close() {            
         sessionStorage.removeItem("token");
         sessionStorage.removeItem("menu");            
         location.href = location.href;
@@ -18,39 +19,35 @@
     
 <div class="container">    
     <div class="sidebar">       
-        <button class="item item1" on:click={() => showMenu("1")}>  
+        <button on:click={() => Menu("1")}>  
             <img src="Reporte.svg" height="50" alt="">     
         </button>
-        <button class="item" on:click={() => showMenu("2")}>
+        <button on:click={() => Menu("2")}>
             <img src="Servicio.svg" height="50" alt="">           
         </button>
-        <button class="item" on:click={() => showMenu("3")}>             
+        <button on:click={() => Menu("3")}>             
             <img src="Horario.svg" height="50" alt="">      
         </button>
-        <button class="item" on:click={() => showMenu("4")}>
+        <button on:click={() => Menu("4")}>
             <img src="Salud.svg" height="50" alt="">            
         </button>
-        <button class="item" on:click={() => showMenu("5")}>
+        <button on:click={() => Menu("5")}>
             <img src="Personal.svg"  height="50" alt="">               
         </button>
-        <button class="item close" on:click={deleteCookies}>
+        <button on:click={Close}>
             <img src="Salir.svg" height="50" alt="">                
         </button>        
     </div>
 
-    <div class="panel">
+    <div>
         {#if menu === "1"}           
             <p>Menu 1</p>
-
         {:else if menu === "2"}
-            <p>Menu 2</p>
-
+            <Prueba />
         {:else if menu === "3"}
             <Horario />
-
         {:else if menu === "4"}
             <p>Menu 4</p>
-
         {:else if menu === "5"}
             <Trabajadores />
         {/if}     
@@ -63,24 +60,36 @@
         max-width: 1400px; 
         min-width: 320px;
         display: grid;
-        grid-template-columns: 1fr;        
-        margin: 0 auto;      
+        grid-template-columns: 1fr;
+        margin: 0 auto;
     }
 
     .sidebar {        
         display: flex;
         flex-direction: row;
         justify-content: space-around;     
-        background-color: #e6eef0;  
+        background-color: #38d39f;        
     }
         
-    .item {
-        background-color: #f2f6f8;
+    button {
+        background-color: #80cfb5;
         border: none;        
         cursor: pointer;
-        outline: none;
-        transition: transform 0.3s ease-in-out; 
-        border-radius: 10px;
+        outline: none;       
+        border-radius: 10px;  
+        transition: 0.4s all;     
+    }    
+
+    button img {
+        margin-top: 3px;
+    }
+ 
+    button:hover {         
+        background-color: #dbe9e1;          
+    }  
+
+    button:active {
+        transform: scale(0.8);
     }    
 
     @media screen and (min-width: 460px){
@@ -94,23 +103,12 @@
             gap: 30px;                    
         }     
         
-        .item {
-            padding-top: 7px;
-            padding-bottom: 2px;
-            margin-left: 6px;
-            margin-right: 6px;
+        button {          
+            margin: 0 6px;
         }
 
-        .item1 {
-            margin-top: 6px;
-        }
-       
-        .item:hover {         
-            transform: scale(1.1);              
-        }         
-
-        .close {
-            margin-bottom: 6px;
+        img {
+            height: 64px;
         }
     }    
 </style>

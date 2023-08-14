@@ -1,6 +1,7 @@
 <script>
-    import {createEventDispatcher} from "svelte";
-
+    import { createEventDispatcher } from "svelte";
+    import { toast } from "@zerodevx/svelte-toast"
+ 
     const dispatch = createEventDispatcher();
 
     let inputUsername;
@@ -12,11 +13,11 @@
         const password = inputPassword.value;
 
         if (!username) {
-            alert("Registra el username");
+            toast.push("Registra el USERNAME");
             inputUsername.focus();
 
         } else if (!password) {
-            alert("Registra el password");
+            toast.push("Registra el PASSWORD");
             inputPassword.focus();
 
         } else {                
@@ -31,21 +32,21 @@
                 const response = await fetch(url, options);              
 
                 if (response.ok) {    
-                    const response_json = await response.json()
-                    sessionStorage.setItem("token", response_json.access_token)          
+                    const json = await response.json()
+                    sessionStorage.setItem("token", json.access_token)          
                     sessionStorage.setItem("menu", "1")
                     dispatch("login"); 
                     
                 } else {
-                    alert("Credenciales de autenticación inválidas");
+                    toast.push("Credenciales de autenticación inválidas");
+                    inputUsername.focus();
                 };
 
             } catch {
-                alert("Sin conexion con el servidor");
+                toast.push("Sin conexion con el servidor");
             };
         };
-    };
-    
+    };    
 </script>
   
 <div class="container"> 
@@ -96,6 +97,7 @@
         font-size: 1.2rem;
         color: #555;  
         background: #f1f3f3;
+        transition: 0.4s all;
     }
 
     .password {
@@ -123,22 +125,20 @@
         background-image: linear-gradient(to right, #3dca9b, #3dca9b, #11a070);  
         background-size: 200%;     
         font-size: 1.2rem;
-        color: #ebebeb;       
+        color: #ffffff;       
         text-transform: uppercase;        
         cursor: pointer;
         transition: 0.5s;
     }
 
     .submit:hover {
-        background-position: right;  
-        color: #ffffff;           
-        transform: translateY(-2px);
+        background-position: right;         
         box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.2);  
     }
 
-    .username:focus, .password:focus {
-        outline: 1px solid #babebe;      
-    } 
+    .submit:active {          
+        transform: scale(0.9);        
+    }   
 </style>
   
   
